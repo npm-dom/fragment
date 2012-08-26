@@ -1,14 +1,27 @@
+Fragment.Element = Element
+
 module.exports = Fragment
 
-function Fragment(html) {
-    var div = document.createElement("div"),
-        fragment = document.createDocumentFragment()
+function Fragment(html, elementName) {
+    var el = document.createElement(elementName || "div")
+        , fragment = document.createDocumentFragment()
 
-    div.innerHTML = html
+    el.innerHTML = html
 
-    while (div.hasChildNodes()) {
-        fragment.appendChild(div.firstChild)
+    while (el.hasChildNodes()) {
+        fragment.appendChild(el.firstChild)
     }
 
     return fragment
+}
+
+function Element(html, elementName) {
+    var el = document.createElement(elementName || "div")
+
+    el.innerHTML = html
+
+    var child = el.firstChild
+    el.removeChild(child)
+
+    return child
 }
